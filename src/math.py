@@ -7,6 +7,54 @@
 
 import math
 
+def add(a,b):
+    """ Addition of two numbers
+    
+    @param a addend
+    @param b addend
+    @return sum of a and b
+    @exception ValueError if a or b is not a number
+    """
+    pass
+
+def substract(a,b):
+    """ Subtraction of two numbers
+    
+    @param a minuend
+    @param b subtrahend
+    @return difference of a and b
+    @exception ValueError if a or b is not a number
+    """
+    pass
+
+def multiply(a,b):
+    """ Multiplication of two numbers
+    
+    @param a multiplier
+    @param b multiplicand
+    @return product of a and b
+    @exception ValueError if a or b is not a number
+    """
+    pass
+
+def divide(a,b):
+    """ Division of two numbers
+    
+    @param a dividend
+    @param b divisor
+    @return quotient of a and b
+    @exception ValueError if b is zero
+    @exception ValueError if a or b is not a number
+    """
+    pass
+
+def _is_number(x):
+    """Check if x is number
+
+    @param x number to check
+    @return True if x is number
+    """
+    pass
 
 def _is_int(x):
     """Check if x is integer even if x is float (5 -> True, 5.0 -> True, 5.1 -> False)
