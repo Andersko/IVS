@@ -13,7 +13,7 @@ def add(a,b):
     @param a addend
     @param b addend
     @return sum of a and b
-    @exception ValueError if a or b is not a number
+    @exception TypeError if a or b is not a number
     """
     pass
 
@@ -23,7 +23,7 @@ def substract(a,b):
     @param a minuend
     @param b subtrahend
     @return difference of a and b
-    @exception ValueError if a or b is not a number
+    @exception TypeError if a or b is not a number
     """
     pass
 
@@ -33,7 +33,7 @@ def multiply(a,b):
     @param a multiplier
     @param b multiplicand
     @return product of a and b
-    @exception ValueError if a or b is not a number
+    @exception TypeError if a or b is not a number
     """
     pass
 
@@ -44,7 +44,7 @@ def divide(a,b):
     @param b divisor
     @return quotient of a and b
     @exception ValueError if b is zero
-    @exception ValueError if a or b is not a number
+    @exception TypeError if a or b is not a number
     """
     pass
 
