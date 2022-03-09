@@ -55,17 +55,17 @@ class MathTest(unittest.TestCase):
 
     #---------------------------------------------
 
-    def test_substr_int(self,a,b):
+    def test_substr_int(self):
         a = 5
         b = 4
         self.assertEqual(substract(a,b),1)
 
-    def test_substr_float(self,a,b):
+    def test_substr_float(self):
         a = 1.075
         b = 0.075
         self.assertEqual(substract(a,b),1.0)
 
-    def test_substr_int_float(self,a,b):
+    def test_substr_int_float(self):
         a = 2.5
         b = 5
         self.assertEqual(substract(a,b),-2.5)
@@ -304,6 +304,8 @@ class MathTest(unittest.TestCase):
         n = -5
         with self.assertRaises(ValueError):
             factorial(n)
+
+#---------------------------------------------
 
     def test_modulo_int(self):
         x = 5
