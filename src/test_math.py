@@ -23,12 +23,12 @@ class MathTest(unittest.TestCase):
         b = 4.465113
         self.assertAlmostEqual(add(a,b),9.520437999999999)
 
-    def test_add_int_float(self,a,b):
+    def test_add_int_float(self):
         a = 2
         b = 0.5
         self.assertEqual(add(a,b),2.5)
 
-    def test_add_int_negative(self,a,b):
+    def test_add_int_negative(self):
         a = -5
         b = -15
         c = 10
@@ -216,10 +216,10 @@ class MathTest(unittest.TestCase):
         n = -2.1
         n2 = -2
 
-        with self.assertRaises(ValueError):
-            power(x,n)
+        self.assertAlmostEqual(power(x,n),-0.1459909658488769)
+        #power(x,n)
 
-        self.assertEqual(power(x,n2),0.16)
+        self.assertEqual(power(x,n2),-0.16)
         
     def test_power_string(self):
         a = 5
@@ -304,6 +304,47 @@ class MathTest(unittest.TestCase):
         n = -5
         with self.assertRaises(ValueError):
             factorial(n)
+
+    def test_modulo_int(self):
+        x = 5
+        n = 4
+        self.assertEqual(modulo(x,n),1)
+
+    def test_modulo_float(self):
+        x = 5.2
+        n = 2.2
+        with self.assertRaises(ValueError):
+            modulo(x,n)
+
+    def test_modulo_int_float(self):
+        x = 2
+        n = 2.5
+        with self.assertRaises(ValueError):
+            modulo(x,n)
+
+        with self.assertRaises(ValueError):
+            modulo(n,x)
+
+    def test_modulo_negative_int(self):
+        x = -2
+        n = 2
+        self.assertEqual(modulo(x,n),0)
+
+    def test_modulo_negative_float(self):
+        x = -5.2
+        n = -1.2
+        with self.assertRaises(ValueError):
+            modulo(x,n)
+
+    def test_modulo_string(self):
+        a = 5
+        b = "nonnumber"
+        
+        with self.assertRaises(ValueError):
+            root(a,b)
+
+        with self.assertRaises(ValueError):
+            root(b,a)
 
 if __name__ == '__main__':
     unittest.main()
