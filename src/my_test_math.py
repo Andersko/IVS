@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+"""TESTS
+@author Marek Sechra
+@date 10.3.2022
+
+subject: IVS
+project: projekt 2
+"""
+
 import unittest
 from my_math import add
 from my_math import substract
@@ -11,8 +19,21 @@ from my_math import root
 from my_math import factorial
 from my_math import modulo
 
+
 class MathTest(unittest.TestCase):
-    
+    """ Class MathTest contains methods which are represent unittest cases
+
+        Testing func:
+            add()
+            substract()
+            multiply()
+            divide()
+            power()
+            root()
+            factorial()
+            mudulo()
+    """
+
     def test_add_int(self):
         a = 256
         b = 256
