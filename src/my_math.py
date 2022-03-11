@@ -2,12 +2,15 @@
 
 @file math.py
 @author Filip Solich
-@date 4.3.2022
+@author Andrej Pavlovič
+@author Adam Kostolányi
+@date 11.3.2022
 """
 
 import math
 
-def add(a,b):
+
+def add(a, b):
     """ Addition of two numbers
     
     @param a addend
@@ -15,9 +18,13 @@ def add(a,b):
     @return sum of a and b
     @exception TypeError if a or b is not a number
     """
-    pass
+    if not _is_number(a) or not _is_number(b):
+        raise TypeError
 
-def substract(a,b):
+    return a + b
+
+
+def subtract(a, b):
     """ Subtraction of two numbers
     
     @param a minuend
@@ -25,9 +32,13 @@ def substract(a,b):
     @return difference of a and b
     @exception TypeError if a or b is not a number
     """
-    pass
+    if not _is_number(a) or not _is_number(b):
+        raise TypeError
 
-def multiply(a,b):
+    return a - b
+
+
+def multiply(a, b):
     """ Multiplication of two numbers
     
     @param a multiplier
@@ -35,9 +46,13 @@ def multiply(a,b):
     @return product of a and b
     @exception TypeError if a or b is not a number
     """
-    pass
+    if not _is_number(a) or not _is_number(b):
+        raise TypeError
 
-def divide(a,b):
+    return a * b
+
+
+def divide(a, b):
     """ Division of two numbers
     
     @param a dividend
@@ -46,7 +61,19 @@ def divide(a,b):
     @exception ValueError if b is zero
     @exception TypeError if a or b is not a number
     """
-    pass
+    if not _is_number(a) or not _is_number(b):
+        raise TypeError
+
+    if b == 0:
+        raise ValueError
+
+    result = a / float(b)
+
+    if int(result) == result:
+        return int(result)
+
+    return result
+
 
 def _is_number(x):
     """Check if x is number
@@ -54,7 +81,11 @@ def _is_number(x):
     @param x number to check
     @return True if x is number
     """
-    pass
+    if type(x) is int or type(x) is float or type(x) is complex:
+        return True
+
+    return False
+
 
 def _is_int(x):
     """Check if x is integer even if x is float (5 -> True, 5.0 -> True, 5.1 -> False)
@@ -78,7 +109,7 @@ def power(x, n):
     if not _is_int(n) or n < 0.0:
         raise ValueError('Exponent isn\'t natural number')
 
-    return x**n
+    return x ** n
 
 
 def root(x, n):
@@ -97,7 +128,7 @@ def root(x, n):
     if x < 0:
         raise ValueError('x is negative number')
 
-    return x**(1/n)
+    return x ** (1 / n)
 
 
 def factorial(x):
@@ -127,3 +158,17 @@ def modulo(x, n):
         raise ValueError('x or n isn\'t integer')
 
     return int(x) % int(n)
+
+
+def sum(li: list):
+    """Sum up list
+
+    @param li list with numbers
+    @return sum
+    """
+    sum = 0
+
+    for number in li:
+        sum = add(sum, number)
+
+    return sum
