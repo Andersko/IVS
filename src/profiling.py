@@ -43,7 +43,6 @@ if __name__ == '__main__':
     # Parse args
     parser = argparse.ArgumentParser(description='''Calculate standard deviation from stdin to stdout.
 Input contains numbers separated by whitespace characters.''')
-    parser.add_argument('INPUT_FILE', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     parser.parse_args()
 
     numbers = []
