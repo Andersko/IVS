@@ -81,7 +81,7 @@ def _is_number(x):
     @param x number to check
     @return True if x is number
     """
-    if type(x) is int or type(x) is float or type(x) is complex:
+    if type(x) is int or type(x) is float:
         return True
 
     return False
