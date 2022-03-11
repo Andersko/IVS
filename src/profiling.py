@@ -3,8 +3,8 @@
 Script implements one function for standard deviation calculated from list of numbers.
 
 Can be imported as module, or run as main script. If run as a script, calculates standard deviation of numbers from
-standard input (file or terminal input) and prints result to standard output. Numbers are separated by whitespace
-characters. Amount of numbers is 2 - 1000.
+standard input and prints result to standard output. Numbers are separated by whitespace characters. Amount of numbers
+is 2 - 1000.
 
 usage: profiling.py [-h] [INPUT_FILE]
 
@@ -42,25 +42,16 @@ def std_dev(numbers: 'list of floats') -> float:
 if __name__ == '__main__':
     # Parse args
     parser = argparse.ArgumentParser(description='''Calculate standard deviation from stdin to stdout.
-Input contains numbers separated by whitespace characters.
-Input can be provided at time of program execution or in run-time.''')
+Input contains numbers separated by whitespace characters.''')
     parser.add_argument('INPUT_FILE', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     parser.parse_args()
 
     numbers = []
 
     try:
-        # Terminal input
-        if sys.stdin.isatty():
-            for word in input().split():
+        for line in sys.stdin:
+            for word in line.split():
                 numbers.append(float(word))
-
-        # File input
-        else:
-            for line in sys.stdin:
-                for word in line.split():
-                    numbers.append(float(word))
-
     except ValueError:
         exit('Invalid input.')
 
