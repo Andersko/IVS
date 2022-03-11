@@ -28,6 +28,7 @@ def std_dev(numbers: 'list of floats') -> float:
 
     @param numbers list of numbers to calculate
     @return standard deviation
+    @exception IndexError if numbers length < 2
     """
     if len(numbers) < 2:
         raise IndexError
