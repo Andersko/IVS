@@ -19,6 +19,8 @@ from my_math import root
 from my_math import factorial
 from my_math import modulo
 
+from my_math import _is_int
+from my_math import _is_number
 
 class MathTest(unittest.TestCase):
     """ Class MathTest contains methods which are represent unittest cases
@@ -307,3 +309,49 @@ class MathTest(unittest.TestCase):
         n = -1.2
         with self.assertRaises(ValueError):
             modulo(x,n)
+#---------------------------------------------
+
+    def test_is_number_int(self):
+        self.assertEqual(_is_number(10),True)
+    
+    def test_is_number_negative_int(self):
+        self.assertEqual(_is_number(-10),True)
+
+    def test_is_number_float(self):
+        self.assertEqual(_is_number(2.55),True)
+
+    def test_is_number_negative_float(self):
+        self.assertEqual(_is_number(-2.55),True)
+
+    def test_is_number_string(self):
+        self.assertEqual(_is_number("0"),False)
+
+    def test_is_number_array(self):
+        a = [1,2,3]
+        self.assertEqual(_is_number(a),False)
+
+#---------------------------------------------
+
+    def test_is_int_int(self):
+        self.assertEqual(_is_int(5),True)
+        self.assertEqual(_is_int(5.0),True)
+
+    def test_is_int_negative_int(self):
+        self.assertEqual(_is_int(-5),True)
+        self.assertEqual(_is_int(-5.0),True)
+
+    def test_is_int_float(self):
+        self.assertEqual(_is_int(5.5),False)
+
+    def test_is_int_negative_float(self):
+        self.assertEqual(_is_int(-5.5),False)
+    
+    def test_is_int_zero(self):
+        self.assertEqual(_is_int(0),True)
+
+    def test_is_int_string(self):
+        self.assertEqual(_is_int("string"),False)
+
+    def test_is_int_array(self):    
+        a = [1,2,3]
+        self.assertEqual(_is_number(a),False)
