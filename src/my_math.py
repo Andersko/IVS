@@ -54,18 +54,16 @@ def multiply(a, b):
 
 def divide(a, b):
     """ Division of two numbers
+
+    Note that function does not take care of zero division.
     
     @param a dividend
     @param b divisor
     @return quotient of a and b
-    @exception ValueError if b is zero
     @exception TypeError if a or b is not a number
     """
     if not _is_number(a) or not _is_number(b):
         raise TypeError
-
-    if b == 0:
-        raise ValueError
 
     result = a / float(b)
 
