@@ -117,6 +117,7 @@ def root(x, n):
     @param n number n in nth root
     @return x**(1/n)
     @exeption ValueError if n isn't integer
+    @exeption ValueError if n is zero 
     @exeption ValueError if x is negative number
     """
 
@@ -126,7 +127,10 @@ def root(x, n):
     if x < 0:
         raise ValueError('x is negative number')
 
-    return x ** (1 / n)
+    if n == 0:
+        raise ValueError('n can\'t be 0')
+
+    return x**(1/n)
 
 
 def factorial(x):

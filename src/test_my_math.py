@@ -19,6 +19,8 @@ from my_math import root
 from my_math import factorial
 from my_math import modulo
 
+from my_math import _is_int
+from my_math import _is_number
 
 class MathTest(unittest.TestCase):
     """ Class MathTest contains methods which are represent unittest cases
@@ -33,7 +35,6 @@ class MathTest(unittest.TestCase):
             factorial()
             mudulo()
     """
-
     def test_add_int(self):
         a = 256
         b = 256
@@ -63,17 +64,6 @@ class MathTest(unittest.TestCase):
         self.assertEqual(add(a,b),-1.25)
         self.assertEqual(add(a,c),1.0)
     
-    def test_add_string(self):
-        a = 5
-        b = "nonnumber"
-        
-        with self.assertRaises(ValueError):
-            add(a,b)
-
-        with self.assertRaises(ValueError):
-            add(b,a)
-
-
     #---------------------------------------------
 
     def test_substr_int(self):
@@ -107,16 +97,6 @@ class MathTest(unittest.TestCase):
         self.assertAlmostEqual(substract(a,c),-1.5)
         self.assertAlmostEqual(substract(c,a),1.5)
 
-    def test_substr_string(self):
-        a = 5
-        b = "nonnumber"
-        
-        with self.assertRaises(ValueError):
-            substract(a,b)
-
-        with self.assertRaises(ValueError):
-            substract(b,a)
-     
      #---------------------------------------------
     
     def test_multiply_int(self):
@@ -152,10 +132,10 @@ class MathTest(unittest.TestCase):
         a = 5
         b = "nonnumber"
         
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             multiply(a,b)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             multiply(b,a)
      #---------------------------------------------
 
@@ -195,16 +175,6 @@ class MathTest(unittest.TestCase):
         self.assertEqual(divide(a,b),2.5)
         self.assertEqual(divide(a,c),-2.5)
      
-    def test_divide_string(self):
-        a = 5
-        b = "nonnumber"
-        
-        with self.assertRaises(ValueError):
-            divide(a,b)
-
-        with self.assertRaises(ValueError):
-            divide(b,a)
-    
      #---------------------------------------------
 
     def test_power_int(self):
@@ -228,8 +198,11 @@ class MathTest(unittest.TestCase):
     def test_power_int_negative(self):
         x = -2
         n = -3
-        self.assertEqual(power(abs(x),n),0.125)
-        self.assertEqual(power(x,n),-0.125)
+        with self.assertRaises(ValueError):
+            power(abs(x),n)
+        with self.assertRaises(ValueError):
+            power(x,n)
+       
         self.assertEqual(power(x,abs(n)),-8)
 
     def test_power_float_negative(self):
@@ -237,23 +210,13 @@ class MathTest(unittest.TestCase):
         n = -2.1
         n2 = -2
 
-        self.assertAlmostEqual(power(x,n),-0.1459909658488769)
-        #power(x,n)
-
-        self.assertEqual(power(x,n2),-0.16)
-        
-    def test_power_string(self):
-        a = 5
-        b = "nonnumber"
-        
         with self.assertRaises(ValueError):
-            power(a,b)
+            power(x,n)
 
         with self.assertRaises(ValueError):
-            power(b,a)
-
+            power(x,n2)
+        
      #---------------------------------------------
-    
     
     def test_root_int(self):
         x = 8
@@ -294,19 +257,7 @@ class MathTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             root(x,n)
 
-        self.assertAlmostEqual(root(abs(x),n),0.1126616234584776)
-
-    def test_root_string(self):
-        a = 5
-        b = "nonnumber"
-        
-        with self.assertRaises(ValueError):
-            root(a,b)
-
-        with self.assertRaises(ValueError):
-            root(b,a)
-
-     #---------------------------------------------
+#---------------------------------------------
 
     def test_factorial_int(self):
         n = 3
@@ -358,16 +309,49 @@ class MathTest(unittest.TestCase):
         n = -1.2
         with self.assertRaises(ValueError):
             modulo(x,n)
+#---------------------------------------------
 
-    def test_modulo_string(self):
-        a = 5
-        b = "nonnumber"
-        
-        with self.assertRaises(ValueError):
-            root(a,b)
+    def test_is_number_int(self):
+        self.assertEqual(_is_number(10),True)
+    
+    def test_is_number_negative_int(self):
+        self.assertEqual(_is_number(-10),True)
 
-        with self.assertRaises(ValueError):
-            root(b,a)
+    def test_is_number_float(self):
+        self.assertEqual(_is_number(2.55),True)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_is_number_negative_float(self):
+        self.assertEqual(_is_number(-2.55),True)
+
+    def test_is_number_string(self):
+        self.assertEqual(_is_number("0"),False)
+
+    def test_is_number_array(self):
+        a = [1,2,3]
+        self.assertEqual(_is_number(a),False)
+
+#---------------------------------------------
+
+    def test_is_int_int(self):
+        self.assertEqual(_is_int(5),True)
+        self.assertEqual(_is_int(5.0),True)
+
+    def test_is_int_negative_int(self):
+        self.assertEqual(_is_int(-5),True)
+        self.assertEqual(_is_int(-5.0),True)
+
+    def test_is_int_float(self):
+        self.assertEqual(_is_int(5.5),False)
+
+    def test_is_int_negative_float(self):
+        self.assertEqual(_is_int(-5.5),False)
+    
+    def test_is_int_zero(self):
+        self.assertEqual(_is_int(0),True)
+
+    def test_is_int_string(self):
+        self.assertEqual(_is_int("string"),False)
+
+    def test_is_int_array(self):    
+        a = [1,2,3]
+        self.assertEqual(_is_number(a),False)
