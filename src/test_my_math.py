@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
-
 """TESTS
 @author Marek Sechra
-@date 10.3.2022
+@date 15.3.2022
 
 subject: IVS
 project: projekt 2
