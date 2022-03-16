@@ -1,11 +1,7 @@
-#!/usr/bin/env python3
-
 """!
 TESTS
-
-@file test_my_math.py
 @author Marek Sechra
-@date 16.3.2022
+@date 15.3.2022
 
 subject: IVS
 project: projekt 2
@@ -13,7 +9,7 @@ project: projekt 2
 
 import unittest
 from my_math import add
-from my_math import substract
+from my_math import subtract
 from my_math import multiply
 from my_math import divide
 
@@ -31,7 +27,7 @@ class MathTest(unittest.TestCase):
 
     Testing func:
         add()
-        substract()
+        subtract()
         multiply()
         divide()
         power()
@@ -73,33 +69,33 @@ class MathTest(unittest.TestCase):
     def test_substr_int(self):
         a = 5
         b = 4
-        self.assertEqual(substract(a,b),1)
+        self.assertEqual(subtract(a,b),1)
 
     def test_substr_float(self):
         a = 1.075
         b = 0.075
-        self.assertEqual(substract(a,b),1.0)
+        self.assertEqual(subtract(a,b),1.0)
 
     def test_substr_int_float(self):
         a = 2.5
         b = 5
-        self.assertEqual(substract(a,b),-2.5)
+        self.assertEqual(subtract(a,b),-2.5)
 
     def test_substr_int_negative(self):
         a = -5
         b = -3
         c = 2.0
-        self.assertEqual(substract(a,b)-2)
-        self.assertEqual(substract(a,c),-7)
-        self.assertEqual(substract(c,a),7)
+        self.assertEqual(subtract(a,b),-2)
+        self.assertEqual(subtract(a,c),-7)
+        self.assertEqual(subtract(c,a),7)
 
     def test_substr_float_negative(self):
         a = -0.5
         b = -0.6
         c = 1.0
-        self.assertAlmostEqual(substract(a,b),0.1)
-        self.assertAlmostEqual(substract(a,c),-1.5)
-        self.assertAlmostEqual(substract(c,a),1.5)
+        self.assertAlmostEqual(subtract(a,b),0.1)
+        self.assertAlmostEqual(subtract(a,c),-1.5)
+        self.assertAlmostEqual(subtract(c,a),1.5)
 
      #---------------------------------------------
     
@@ -123,7 +119,7 @@ class MathTest(unittest.TestCase):
         b = -5
         c = 7
         self.assertEqual(multiply(a,b),15)
-        self.assertEqual(multiply(a,c),-27)
+        self.assertEqual(multiply(a,c),-21)
 
     def test_multiply_float_negative(self):
         a = -3.25
@@ -156,7 +152,7 @@ class MathTest(unittest.TestCase):
     def test_divide_zero(self):
         a = 2
         b = 0
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ZeroDivisionError):
             divide(a,b)
 
     def test_divide_int_float(self):
