@@ -1,4 +1,5 @@
-"""Module for standard deviation calculation
+"""!
+Module for standard deviation calculation
 
 Script implements one function for standard deviation calculated from list of numbers.
 
@@ -10,7 +11,7 @@ usage: profiling.py [-h] [INPUT_FILE]
 
 @file profiling.py
 @author Andrej Pavlovič
-@date 11.3.2022
+@date 16.3.2022
 """
 
 # Internal program imports
@@ -24,7 +25,8 @@ import argparse
 
 
 def std_dev(numbers: 'list of floats') -> float:
-    """ Calculate standard deviation
+    """!
+    Calculate standard deviation
 
     @param numbers list of numbers to calculate
     @return standard deviation

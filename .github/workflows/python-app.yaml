@@ -28,5 +28,6 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Tests
-      run: |
-        make test
+      run: make test
+    - name: Generate documentation
+      run: make doc
