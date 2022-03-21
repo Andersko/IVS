@@ -1,23 +1,52 @@
-"""Math module for calculator
+"""!
+Math module for calculator
 
 @file math.py
 @author Filip Solich
 @author Andrej Pavlovič
 @author Adam Kostolányi
-@date 11.3.2022
+@date 16.3.2022
 """
+
 
 import math
 
 
+def _is_number(x):
+    """!
+    Check if x is number
+
+    @param x number to check
+    @return True if x is number
+    """
+
+    if type(x) is int or type(x) is float:
+        return True
+
+    return False
+
+
+def _is_int(x):
+    """!
+    Check if x is integer even if x is float (5 -> True, 5.0 -> True, 5.1 -> False)
+
+    @param x number to integer check
+    @return True if x is integer
+    """
+
+    return isinstance(x, int) or (isinstance(x, float) and x.is_integer())
+
+
 def add(a, b):
-    """ Addition of two numbers
+    """!
+    Addition of two numbers
     
     @param a addend
     @param b addend
     @return sum of a and b
     @exception TypeError if a or b is not a number
     """
+
     if not _is_number(a) or not _is_number(b):
         raise TypeError
 
@@ -25,13 +54,15 @@ def add(a, b):
 
 
 def subtract(a, b):
-    """ Subtraction of two numbers
+    """!
+    Subtraction of two numbers
     
     @param a minuend
     @param b subtrahend
     @return difference of a and b
     @exception TypeError if a or b is not a number
     """
+
     if not _is_number(a) or not _is_number(b):
         raise TypeError
 
@@ -39,13 +70,15 @@ def subtract(a, b):
 
 
 def multiply(a, b):
-    """ Multiplication of two numbers
+    """!
+    Multiplication of two numbers
     
     @param a multiplier
     @param b multiplicand
     @return product of a and b
     @exception TypeError if a or b is not a number
     """
+
     if not _is_number(a) or not _is_number(b):
         raise TypeError
 
@@ -53,7 +86,8 @@ def multiply(a, b):
 
 
 def divide(a, b):
-    """ Division of two numbers
+    """!
+    Division of two numbers
 
     Note that function does not take care of zero division.
     
@@ -62,6 +96,7 @@ def divide(a, b):
     @return quotient of a and b
     @exception TypeError if a or b is not a number
     """
+
     if not _is_number(a) or not _is_number(b):
         raise TypeError
 
@@ -73,35 +108,14 @@ def divide(a, b):
     return result
 
 
-def _is_number(x):
-    """Check if x is number
-
-    @param x number to check
-    @return True if x is number
-    """
-    if type(x) is int or type(x) is float:
-        return True
-
-    return False
-
-
-def _is_int(x):
-    """Check if x is integer even if x is float (5 -> True, 5.0 -> True, 5.1 -> False)
-
-    @param x number to integer check
-    @return True if x is integer
-    """
-
-    return isinstance(x, int) or (isinstance(x, float) and x.is_integer())
-
-
 def power(x, n):
-    """Calculate x^n
+    """!
+    Calculate x^n
 
     @param x base value
     @param n exponent
     @return x raised to the power n
-    @exeption TypeError if `x` or `n` isnt't number
+    @exception TypeError if `x` or `n` isnt't number
     @exception ValueError if exponent isn't natural number
     """
 
@@ -115,15 +129,16 @@ def power(x, n):
 
 
 def root(x, n):
-    """Calculate nth root of `x`
+    """!
+    Calculate nth root of `x`
 
     @param x positive number
     @param n number n in nth root
     @return x**(1/n)
-    @exeption TypeError if `x` or `n` isnt't number
-    @exeption ValueError if `n` isn't integer
-    @exeption ValueError if `n` is zero 
-    @exeption ValueError if `x` is negative number
+    @exception TypeError if `x` or `n` isnt't number
+    @exception ValueError if `n` isn't integer
+    @exception ValueError if `n` is zero 
+    @exception ValueError if `x` is negative number
     """
 
     if not _is_number(x) or not _is_number(n):
@@ -142,12 +157,13 @@ def root(x, n):
 
 
 def factorial(x):
-    """Calculate `x` factorial
+    """!
+    Calculate `x` factorial
 
     @param x value for factorial calculation
     @return x factorial
-    @exeption TypeError if `x` isn't number
-    @exeption ValusError if `x` isn't integer or `x` is negative number
+    @exception TypeError if `x` isn't number
+    @exception ValusError if `x` isn't integer or `x` is negative number
     """
 
     if not _is_number(x):
@@ -160,13 +176,14 @@ def factorial(x):
 
 
 def modulo(x, n):
-    """Calculate modulo from `x` and `n`
+    """!
+    Calculate modulo from `x` and `n`
 
     @param x divident
     @param n divisor
     @return x % n
-    @exeption TypeError if `x` or `n` isnt't number
-    @exeption ValueError if `x` or `n` isnt't integer
+    @exception TypeError if `x` or `n` isnt't number
+    @exception ValueError if `x` or `n` isnt't integer
     """
 
     if not _is_number(x) or not _is_number(n):
@@ -179,11 +196,13 @@ def modulo(x, n):
 
 
 def sum(li: list):
-    """Sum up list
+    """!
+    Sum up list
 
     @param li list with numbers
     @return sum
     """
+
     sum = 0
 
     for number in li:
