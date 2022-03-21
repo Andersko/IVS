@@ -2,8 +2,8 @@
 # Makefile
 #
 
-TARGET       = calculator
-PROFILE      = profile
+TARGET       = calculator.py
+PROFILE      = profile.py
 PROFILE_DATA = data.txt
 
 PYTHON  = python3

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """!
 Module for standard deviation calculation
 
@@ -11,7 +12,7 @@ usage: profiling.py [-h] [INPUT_FILE]
 
 @file profiling.py
 @author Andrej Pavlovič
-@date 16.3.2022
+@date 19.3.2022
 """
 
 # Internal program imports
