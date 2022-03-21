@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Module for standard deviation calculation
+"""!
+Module for standard deviation calculation
 
 Script implements one function for standard deviation calculated from list of numbers.
 
@@ -25,7 +26,8 @@ import argparse
 
 
 def std_dev(numbers: 'list of floats') -> float:
-    """ Calculate standard deviation
+    """!
+    Calculate standard deviation
 
     @param numbers list of numbers to calculate
     @return standard deviation

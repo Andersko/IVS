@@ -1,4 +1,5 @@
-"""TESTS
+"""!
+TESTS
 @author Marek Sechra
 @date 15.3.2022
 
@@ -21,17 +22,18 @@ from my_math import _is_int
 from my_math import _is_number
 
 class MathTest(unittest.TestCase):
-    """ Class MathTest contains methods which are represent unittest cases
+    """!
+    Class MathTest contains methods which are represent unittest cases
 
-        Testing func:
-            add()
-            subtract()
-            multiply()
-            divide()
-            power()
-            root()
-            factorial()
-            mudulo()
+    Testing func:
+        add()
+        subtract()
+        multiply()
+        divide()
+        power()
+        root()
+        factorial()
+        mudulo()
     """
     def test_add_int(self):
         a = 256
