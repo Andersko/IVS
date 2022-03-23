@@ -3,12 +3,11 @@ import os
 from pathlib import Path
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
 from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
 
-
-class CalculatorMainWindow(QMainWindow):
+class CalculatorMainWindow(QWidget):
     def __init__(self):
         super(CalculatorMainWindow, self).__init__()
         self.load_ui()
@@ -18,12 +17,13 @@ class CalculatorMainWindow(QMainWindow):
         path = os.fspath(Path(__file__).resolve().parent / "form.ui")
         ui_file = QFile(path)
         ui_file.open(QFile.ReadOnly)
-        loader.load(ui_file, self)
+        self.w =loader.load(ui_file, self)
+        self.w .show()
         ui_file.close()
 
 
 if __name__ == "__main__":
-    app = QApplication([])
+    app = QApplication(sys.argv)
     widget = CalculatorMainWindow()
     widget.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
