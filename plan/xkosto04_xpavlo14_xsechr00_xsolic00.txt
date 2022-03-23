@@ -1,0 +1,31 @@
+Termíny:
+	Presné termíny sme si nestanovili a ani tak robiť nebudeme.
+	Projekt nie je pre 4 ľudí príliš rozsiahli a tak si myslíme,
+	že by to bolo zbytočné. Prediskutovali sme ale na približnej
+	úrovni termíny ostatných predmetov, termín odovzdania projektu
+	do IVS, čas potrebný na testovanie produktu, atď. a teda máme
+	nejaký obraz. Sme tým tretiakov a po prvej schôdzke sme usúdili,
+	že všetci štyria sa javíme viac-menej zodpovedný.
+
+Predbežný plán rozdelenia práce:
+	Počas vývoja sa môže meniť podľa okolností, taktiež neskôr možno
+	zvážime niektoré dobrovoľné rozšírenia projektu.
+	- Adam Kostolányi - xkosto04
+		* Základné matematické operácie, GUI
+	- Andrej Pavlovič - xpavlo14
+		* Inštalátor, Profiling
+	- Marek Sechra - xsechr00
+		* Testy, GUI mockup
+	- Filip Solich - xsolic00
+		* Komplexné matematické operácie, Makefile
+
+Komunikačné kanály a pravidlá pre komunikáciu:
+	Využívame predovšetkým discord, kde sme si vytvorili server k
+	tomu určený, prípadne sociálne prvky služby GitHub. Striktne
+	nemáme stanovené žiadne pravidlá. Hlasové schôdzky podľa
+	potreby, no jedna v plnom počte minimálne raz do dvoch
+	týždňov, kde prediskutujeme čo ďalej a čo treba.
+	
+Verzovací systém, hosting, informácie pre vyučujúceho:
+	git + GitHub. Do repozitáru bol pozvaný uživateľ 'ivskontrola'.
+	https://github.com/Andersko/IVS
