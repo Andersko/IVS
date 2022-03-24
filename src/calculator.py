@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """!
 Calculator "main" file
 
@@ -10,19 +9,17 @@ Create application and main window
 """
 
 import sys
-
-from PySide6.QtWidgets import QApplication, QMainWindow
-
+from PySide6.QtWidgets import QApplication
+from mainwindow import MainWindow
 
 def main():
     app = QApplication(sys.argv)
 
-    window = QMainWindow()
+    window = MainWindow()
     window.setWindowTitle('Calculator')
     window.show()
 
     sys.exit(app.exec())
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
