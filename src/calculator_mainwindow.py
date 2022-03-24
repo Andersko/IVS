@@ -17,13 +17,12 @@ class CalculatorMainWindow(QWidget):
         path = os.fspath(Path(__file__).resolve().parent / "form.ui")
         ui_file = QFile(path)
         ui_file.open(QFile.ReadOnly)
-        self.w =loader.load(ui_file, self)
-        self.w .show()
+        self.window = loader.load(ui_file, self)
         ui_file.close()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = CalculatorMainWindow()
-    widget.show()
+    widget.window.show()
     sys.exit(app.exec())
