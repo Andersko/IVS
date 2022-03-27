@@ -1,3 +1,3 @@
 {
-    "files": ["calculator_mainwindow.py", "form.ui"]
+    "files": ["calculator.py", "mainwindow.py", "mainwindow.ui", "profiling.py", "my_math.py", "test_my_math.py"]
 }
