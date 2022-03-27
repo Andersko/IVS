@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form.ui'
+## Form generated from reading UI file 'mainwindow.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -237,7 +237,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 860, 21))
+        self.menubar.setGeometry(QRect(0, 0, 860, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -265,7 +265,7 @@ class Ui_MainWindow(object):
         self.Button_Eight.setText(QCoreApplication.translate("MainWindow", u"8", None))
         self.Button_Nine.setText(QCoreApplication.translate("MainWindow", u"9", None))
         self.Button_Plus.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        self.Button_Times.setText(QCoreApplication.translate("MainWindow", u"x", None))
+        self.Button_Times.setText(QCoreApplication.translate("MainWindow", u"*", None))
         self.Button_Power.setText(QCoreApplication.translate("MainWindow", u"x^", None))
         self.Button_Two.setText(QCoreApplication.translate("MainWindow", u"2", None))
         self.Button_Three.setText(QCoreApplication.translate("MainWindow", u"3", None))

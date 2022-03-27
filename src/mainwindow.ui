@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CalculatorMainWindow</class>
- <widget class="QMainWindow" name="CalculatorMainWindow">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -369,7 +369,7 @@
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string>*</string>
            </property>
            <property name="iconSize">
             <size>
@@ -521,7 +521,7 @@
      <x>0</x>
      <y>0</y>
      <width>860</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
