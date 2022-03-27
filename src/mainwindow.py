@@ -149,5 +149,4 @@ class MainWindow(QMainWindow):
         elif event.key() == Qt.Key_Delete:
             self.clear_input()
         elif event.key() == Qt.Key_Backspace:
-            old = self.ui.OutputLabel.text()
-            self.ui.OutputLabel.setText(old[:len(old)-1])
+            self.ui.OutputLabel.setText(self.ui.OutputLabel.text()[:-1])
