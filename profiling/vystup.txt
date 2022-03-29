@@ -1,0 +1,53 @@
+All data are ordered by number of calls. All time date are milliseconds.
+
+----------------------------------------------------------------------------
+
+> python3 profiling.py < test_10.txt
+        4.539053187132183
+
+      name  calls  time  own_time
+
+_is_number     78     0         0
+       add     20     0         0
+   _is_int     12     0         0
+     power     11     0         0
+  multiply      3     0         0
+  subtract      2     0         0
+    divide      2     0         0
+       sum      2     0         0
+      root      1     0         0
+                                                
+----------------------------------------------------------------------------
+
+> python3 profiling.py < test_100.txt
+        26.389739752415256
+	
+      name  calls  time  own_time
+
+_is_number    618      0       0
+       add    200      0       0
+   _is_int    102      0       0
+     power    101      0       0
+  multiply      3      0       0
+  subtract      2      0       0
+    divide      2      0       0
+       sum      2      0       0
+      root      1      0       0
+
+----------------------------------------------------------------------------
+
+> python3 profiling.py < test_1000.txt
+        27.2796096667894
+
+      name  calls  time  own_time
+
+_is_number   6018     3         3
+       add   2000     4         1
+   _is_int   1002     0         0
+     power   1001     4         2
+  multiply      3     0         0
+  subtract      2     0         0
+    divide      2     0         0
+       sum      2     4         0
+      root      1     0         0
+
