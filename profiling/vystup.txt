@@ -1,4 +1,4 @@
-All data are ordered by number of calls. All time date are milliseconds.
+All data are ordered by number of calls. All time data are milliseconds.
 
 ----------------------------------------------------------------------------
 
