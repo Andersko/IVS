@@ -1,0 +1,24 @@
+We used profiling features (flat profile) which come with professional bundle of PyCharm IDE.
+
+Due to low general complexity of the program, profiling data focused on the time spent in individual functions are
+inaccurate. Therefore, with analysis of output statistics from profiling, we aimed mostly at number of individual
+function calls (1). Also, we analyzed only functions implemented within this project, since we cannot optimize built-in
+libraries or functions and based on their documentations, we are sure we implemented them in preferable ways (things
+such as arguments parsing or input parsing). For same reasons in profile output report we mention only profile
+statistics linked directly to our implementations.
+
+(1) With this particular optimization we don't actually need compute time that much anyway. There is a
+huge contrast between count of function calls - either really numerous or tiny. Also, all the functions are essentially
+very much trivial and are using mostly well-implemented Python's functions or basic operations, so they can't be so
+badly optimized anyway. So all we need is to check on most often called functions.
+
+
+    Conclusion:
+
+From statistics can be seen that functions '_is_number', '_is_int', 'add' and 'power' are called the most. We aimed at
+optimizing these. We found out that they're already implemented very efficiently.
+One possible option for further optimization could be throwing off check if passed argument is indeed a number. This
+check is performed in private function '_is_number' in 'my_math.py' module, which is called by far the most. This is
+unnecessarily since the input types of data for standard deviation are checked before calls for 'my_math.py' module. BUT
+this module is mainly needed for other purposes such as calculator application back-end, which are in need for this
+check.
