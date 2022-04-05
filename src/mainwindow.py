@@ -54,6 +54,7 @@ class MainWindow(QMainWindow):
         pass
 
     def parse_expression(self, operation, numberList):
+        result = 0.0
         if operation == '+':
             result = my_math.add(numberList.pop(),numberList.pop())
         elif operation == '-':
@@ -74,6 +75,7 @@ class MainWindow(QMainWindow):
             last = numberList.pop()
             preLast = numberList.pop()
             result = my_math.modulo(preLast,last)
+        
         numberList.append(result)
 
         
@@ -107,6 +109,9 @@ class MainWindow(QMainWindow):
         self.ui.Button_Percent.clicked.connect(self.button_pressed)
         self.ui.Button_C.clicked.connect(self.clear_input)
         self.ui.Button_Hint.clicked.connect(self.hint)
+        self.ui.Button_Left_Parenthesis.clicked.connect(self.button_pressed)
+        self.ui.Button_Right_Parenthesis.clicked.connect(self.button_pressed)
+
 
     def button_pressed(self):
         self.add_input_char(self.sender().text()[-1])
@@ -147,20 +152,37 @@ class MainWindow(QMainWindow):
             print(operationsStack)
             print(numbers)
             print(numbersStack)
+            # if (currentOperator == '(' and nextOperator == ')'):
+            #     operations.pop()
+            #     operations.append(operationsStack.pop())
+            #     numbers.append(numbersStack.pop())
+            #     print('-------Parenthesis pop--------')
+            #     continue
+
             if self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'S':
                 operationsStack.append(currentOperator)
-                numbersStack.append(numbers.pop())
+                if (nextOperator != '('):
+                    numbersStack.append(numbers.pop())
                 print("SHIFT")
             elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'R':
                 print("REDUCE")
                 self.parse_expression(currentOperator,numbers)
-                if len(operationsStack) != 0:
+                if (len(operationsStack) != 0 ):
+                    if( operationsStack[-1]== '(' and nextOperator== ')'):
+                        operations.pop()
+                        operationsStack.pop()
+                        print('-------Parenthesis pop--------')
                     operations.append(operationsStack.pop())
-                print(operations)
-                if len(numbersStack) != 0:
                     numbers.append(numbersStack.pop())
+                    
+                #if (len(operationsStack) != 0 and nextOperator== ')' and operationsStack[-1]== '('):
+                #if (nextOperator == ')' and operationsStack[-1]== '(')
+                #if (len(numbersStack) != 0 and operationsStack[0] != '('):
+                #   print(operationsStack[0])
+                    
             elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'ERR':
                 print("ERROR")
+                return
             elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'A':
                 print("END")
                 print(numbers)
@@ -168,7 +190,6 @@ class MainWindow(QMainWindow):
                 self
                 return
             print('---------AFTER----------')
-            print(currentOperator + '\t'+ nextOperator)
             print(operations)
             print(operationsStack)
             print(numbers)
@@ -180,7 +201,7 @@ class MainWindow(QMainWindow):
         pass
 
     def parseNumbers(self,text):
-        parsedNumbers = re.split(r"\+|-|\/|\*|√|^|\!",text)
+        parsedNumbers = re.split(r"\+|-|\/|\*|√|^|\!|\(|\)",text)
         parsedNumbers = list(filter(None, parsedNumbers))
         parsedNumbers = [float(x) for x in parsedNumbers]
         return parsedNumbers
@@ -215,6 +236,10 @@ class MainWindow(QMainWindow):
             self.add_input_char('%')
         elif event.key() == Qt.Key_Exclam:
             self.add_input_char('!')
+        elif event.key() == Qt.Key_ParenLeft:
+            self.add_input_char('(')
+        elif event.key() == Qt.Key_ParenRight:
+            self.add_input_char(')')
         elif event.key() == Qt.Key_Question:
             self.hint()
         elif event.key() == Qt.Key_Delete:
