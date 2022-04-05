@@ -140,7 +140,7 @@ class MainWindow(QMainWindow):
         operations.insert(0,'$')
         print(numbers)
         print(operations)
-        print('--------------WHILE--------------')
+        print('--------------PARSE START - WHILE--------------')
         operationsStack = []
         numbersStack = []
         while True:
@@ -152,12 +152,6 @@ class MainWindow(QMainWindow):
             print(operationsStack)
             print(numbers)
             print(numbersStack)
-            # if (currentOperator == '(' and nextOperator == ')'):
-            #     operations.pop()
-            #     operations.append(operationsStack.pop())
-            #     numbers.append(numbersStack.pop())
-            #     print('-------Parenthesis pop--------')
-            #     continue
 
             if self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'S':
                 operationsStack.append(currentOperator)
@@ -174,11 +168,6 @@ class MainWindow(QMainWindow):
                         print('-------Parenthesis pop--------')
                     operations.append(operationsStack.pop())
                     numbers.append(numbersStack.pop())
-                    
-                #if (len(operationsStack) != 0 and nextOperator== ')' and operationsStack[-1]== '('):
-                #if (nextOperator == ')' and operationsStack[-1]== '(')
-                #if (len(numbersStack) != 0 and operationsStack[0] != '('):
-                #   print(operationsStack[0])
                     
             elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'ERR':
                 print("ERROR")
