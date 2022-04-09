@@ -16,16 +16,16 @@ class MainWindow(QMainWindow):
 
 
     precTable = [
-#stack +-     *,/     (      )     !       ^      √      %       $      # next
-    ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'ERR'],    # +-
-    ['S',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'ERR'],    # */
-    ['S',   'S',   'S',   'ERR', 'R',   'S',   'S',   'ERR', 'ERR'],    # (
-    ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'ERR', 'ERR'],    # )
-    ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'ERR'],    # !
-    ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'ERR'],    # ^ todo
-    ['S',   'S',   'S',   'ERR', 'ERR', 'S',   'ERR', 'ERR', 'ERR'],    # √ todo
-    ['ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR'],    # % todo
-    ['R',   'R',   'ERR', 'ERR', 'R',   'R',   'ERR', 'R',   'A']]      #$            
+#prev +-     *,/     (      )     !       ^      √      %       $      # current
+    ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # +-
+    ['S',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # */
+    ['S',   'S',   'S',   'ERR', 'R',   'S',   'S',   'ERR', 'S'],    # (
+    ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
+    ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # !
+    ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'S'],    # ^ todo
+    ['S',   'S',   'S',   'ERR', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
+    ['ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
+    ['R',   'R',   'ERR', 'R', 'R',   'R',   'ERR', 'R',   'A']]      #$            
 
     def getIndex(self, operator):
         if operator == '+' or operator == '-':
@@ -56,22 +56,34 @@ class MainWindow(QMainWindow):
     def parse_expression(self, operation, numberList):
         result = 0.0
         if operation == '+':
+            print("operation +")
             result = my_math.add(numberList.pop(),numberList.pop())
         elif operation == '-':
-            result = my_math.subtract(numberList.pop(),numberList.pop())
+            print("operation -")
+            last = numberList.pop()
+            preLast = numberList.pop()
+            result = my_math.subtract(preLast,last)
         elif operation == '*':
+            print("operation *")
             result = my_math.multiply(numberList.pop(),numberList.pop())
         elif operation == '/':
-            result = my_math.divide(numberList.pop(),numberList.pop())
+            print("operation /")
+            last = numberList.pop()
+            preLast = numberList.pop()
+            result = my_math.divide(preLast,last)
         elif operation == '!':
+            print("operation !")
             result = my_math.factorial(numberList.pop())
         elif operation == '^':
+            print("operation ^")
             last = numberList.pop()
             preLast = numberList.pop()
             result = my_math.power(preLast,last)
         elif operation == '√':
+            print("operation sqrt")
             my_math.root(numberList.pop())
         elif operation == '%':
+            print("operation %")
             last = numberList.pop()
             preLast = numberList.pop()
             result = my_math.modulo(preLast,last)
@@ -130,67 +142,99 @@ class MainWindow(QMainWindow):
 
     def calculate(self):
         expression = str(self.ui.OutputLabel.text())
-        
-        numbers = self.parseNumbers(expression)
-        operations = self.parseOperations(expression)
-        numbers.reverse()
-        numbers.insert(0,'$')
-        operations.reverse()
-        operations.insert(0,'$')
-        operations.insert(0,'$')
-        print(numbers)
-        print(operations)
+        tokens = self.parseString(expression)
+        tokens.append('$')
+
         print('--------------PARSE START - WHILE--------------')
-        operationsStack = []
+        operationsStack = ['$']
         numbersStack = []
+        print(tokens)
         while True:
             print('-----------Begin----------')
-            currentOperator = operations.pop()
-            nextOperator = operations[-1]
-            print(currentOperator + '\t'+ nextOperator)
-            print(operations)
-            print(operationsStack)
-            print(numbers)
+            print(tokens)
+            currentToken = tokens.pop(0)
+    
+            print(currentToken)
+            print(tokens)
             print(numbersStack)
+            print(operationsStack)  
 
-            if self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'S':
-                operationsStack.append(currentOperator)
-                if (nextOperator != '('):
-                    numbersStack.append(numbers.pop())
-                print("SHIFT")
-            elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'R':
-                print("REDUCE")
-                self.parse_expression(currentOperator,numbers)
-                if (len(operationsStack) != 0 ):
-                    if( operationsStack[-1]== '(' and nextOperator== ')'):
-                        operations.pop()
-                        operationsStack.pop()
-                        print('-------Parenthesis pop--------')
-                    operations.append(operationsStack.pop())
-                    numbers.append(numbersStack.pop())
+            if isinstance(currentToken, float):
+                print('push number')
+                numbersStack.append(currentToken)
+            elif isinstance(currentToken, str):
+                
+                # if first operation
+                if operationsStack[-1] == '$' and len(tokens) != 0: # tokens[0] != '$':
+                    print('if1')
+                    operationsStack.append(currentToken)
+                else:
+                    print('if2')
+                    prevOperator = operationsStack[-1]
+                    nextAction = self.precTable[self.getIndex(currentToken)][self.getIndex(prevOperator)]
                     
-            elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'ERR':
-                print("ERROR")
-                return
-            elif self.precTable[self.getIndex(nextOperator)][self.getIndex(currentOperator)] == 'A':
-                print("END")
-                print(numbers)
-                self.ui.OutputLabel.setText(str(numbers[-1]))
-                self
-                return
-            print('---------AFTER----------')
-            print(operations)
-            print(operationsStack)
-            print(numbers)
+                    if nextAction == 'S':
+                        print('shift')
+                        operationsStack.append(currentToken)
+                    elif nextAction == 'R':
+                        print('reduce')
+                        operation = operationsStack.pop()
+                        
+                        pushRightParenth = False
+                        if operation == ')':
+                            print('this')
+                            pushRightParenth = True
+                            operation = operationsStack.pop()
+
+                        self.parse_expression(operation,numbersStack)
+                        
+                        if currentToken != '$':
+                            operationsStack.append(currentToken)
+                        else:
+                            tokens.insert(0,currentToken)
+                            if pushRightParenth:
+                                print("push )")
+                                operationsStack.append(')')
+                                print(operation)
+                                print(tokens)
+                                print(operationsStack)
+                                pushRightParenth = False
+                            
+                            
+                        if operationsStack[-1] == ')' and operationsStack[-2] == '(':
+                            print('pop parenth')
+                            operationsStack.pop()
+                            operationsStack.pop()
+
+                    elif nextAction == 'ERR':
+                        print('error')
+                    elif nextAction == "A":
+                        print('a')
+                        break
+
+
             print(numbersStack)
-            print('-----------END-----------')
-        pass
+            print(operationsStack)    
+            
+        print(numbersStack)
+        print(operationsStack)
+        print('-----------END-----------')
+        self.ui.OutputLabel.setText(str(numbersStack[0]))
 
     def hint(self):
         pass
 
+    def parseString(self,text):
+        regex = re.compile(r'((?:(?:\d+(?:\.\d+)?))|(?:[-+\/*()√^%])|(?:-?\.\d+))') #r'((?:-?(?:\d+(?:\.\d+)?))|(?:[-+\/*()])|(?:-?\.\d+))'
+        parsed = re.findall(regex,text)
+        parsed = [ float(x) if (re.match( r'(\d*\.\d+|\d+)' ,x) != None) else x for x in parsed]
+        # print(parsed)
+        # for x in parsed:
+        #     print(x,type(x))
+        return parsed
+
     def parseNumbers(self,text):
-        parsedNumbers = re.split(r"\+|-|\/|\*|√|^|\!|\(|\)",text)
+        parsedNumbers = re.split(r"\+|-|\/|\*|\√|\^|\!|\(|\)",text)
         parsedNumbers = list(filter(None, parsedNumbers))
         parsedNumbers = [float(x) for x in parsedNumbers]
         return parsedNumbers
