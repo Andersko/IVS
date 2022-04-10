@@ -179,7 +179,13 @@ class MainWindow(QMainWindow):
                     elif nextAction == 'R':
                         print('reduce')
                         operation = operationsStack.pop()
-                        
+
+                        # 
+                        if currentToken == ')' and operation == ')':
+                            print('insert ) back')
+                            # insert back the lost ')'
+                            tokens.insert(0,currentToken)
+
                         pushRightParenth = False
                         if operation == ')':
                             print('this')
@@ -198,13 +204,15 @@ class MainWindow(QMainWindow):
                                 print(operation)
                                 print(tokens)
                                 print(operationsStack)
-                                pushRightParenth = False
+                                
                             
                             
                         if operationsStack[-1] == ')' and operationsStack[-2] == '(':
                             print('pop parenth')
                             operationsStack.pop()
                             operationsStack.pop()
+
+                        
 
                     elif nextAction == 'ERR':
                         print('error')
