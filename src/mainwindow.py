@@ -57,39 +57,70 @@ class MainWindow(QMainWindow):
         result = 0.0
         if operation == '+':
             print("operation +")
-            result = my_math.add(numberList.pop(),numberList.pop())
+            print(len(numberList))
+            if len(numberList) >= 2:
+                last = numberList.pop()
+                preLast = numberList.pop()
+                result = my_math.add(preLast,last)
+            else:
+                return True
         elif operation == '-':
             print("operation -")
-            last = numberList.pop()
-            preLast = numberList.pop()
-            result = my_math.subtract(preLast,last)
+            if len(numberList) >= 2:
+                last = numberList.pop()
+                preLast = numberList.pop()
+                result = my_math.subtract(preLast,last)
+            else:
+                return True
         elif operation == '*':
             print("operation *")
-            result = my_math.multiply(numberList.pop(),numberList.pop())
+            if len(numberList) >= 2:
+                last = numberList.pop()
+                preLast = numberList.pop()
+                result = my_math.multiply(preLast,last)
+            else:
+                return True
         elif operation == '/':
             print("operation /")
-            last = numberList.pop()
-            preLast = numberList.pop()
-            result = my_math.divide(preLast,last)
+            if len(numberList) >= 2:
+                last = numberList.pop()
+                preLast = numberList.pop()
+                result = my_math.divide(preLast,last)
+            else:
+                return True
         elif operation == '!':
             print("operation !")
-            result = my_math.factorial(numberList.pop())
+            if len(numberList) >= 1:
+                last = numberList.pop()
+                result = my_math.factorial(last)
+            else:
+                return True
         elif operation == '^':
             print("operation ^")
-            last = numberList.pop()
-            preLast = numberList.pop()
-            result = my_math.power(preLast,last)
+            if len(numberList) >= 2:
+                last = numberList.pop()
+                preLast = numberList.pop()
+                result = my_math.power(preLast,last)
+            else:
+                return True
         elif operation == '√':
             print("operation sqrt")
-            my_math.root(numberList.pop())
+            if len(numberList) >= 1:
+                last = numberList.pop()
+                my_math.root(last)
+            else:
+                return True
         elif operation == '%':
             print("operation %")
-            last = numberList.pop()
-            preLast = numberList.pop()
-            result = my_math.modulo(preLast,last)
+            if len(numberList) >= 2:
+                last = numberList.pop()
+                preLast = numberList.pop()
+                result = my_math.modulo(preLast,last)
+            else:
+                return True
         
         numberList.append(result)
-
+        return False
         
 
     def __init__(self):
@@ -152,7 +183,9 @@ class MainWindow(QMainWindow):
         while True:
             print('-----------Begin----------')
             print(tokens)
-            currentToken = tokens.pop(0)
+
+            if len(tokens) != 0:
+                currentToken = tokens.pop(0)
     
             print(currentToken)
             print(tokens)
@@ -190,10 +223,14 @@ class MainWindow(QMainWindow):
                         if operation == ')':
                             print('this')
                             pushRightParenth = True
-                            operation = operationsStack.pop()
+                            if len(operationsStack) != 0:
+                                operation = operationsStack.pop()
 
-                        self.parse_expression(operation,numbersStack)
-                        
+                        parseError = self.parse_expression(operation,numbersStack)
+                        if parseError == True:
+                            self.ui.OutputLabel.setText("Bad input")
+                            break
+
                         if currentToken != '$':
                             operationsStack.append(currentToken)
                         else:
@@ -205,29 +242,31 @@ class MainWindow(QMainWindow):
                                 print(tokens)
                                 print(operationsStack)
                                 
-                            
-                            
                         if operationsStack[-1] == ')' and operationsStack[-2] == '(':
                             print('pop parenth')
                             operationsStack.pop()
                             operationsStack.pop()
 
                         
-
                     elif nextAction == 'ERR':
+                        self.ui.OutputLabel.setText("Bad input")
                         print('error')
+                        break
                     elif nextAction == "A":
                         print('a')
+                        self.ui.OutputLabel.setText(str(numbersStack[0]))
                         break
 
 
             print(numbersStack)
             print(operationsStack)    
-            
+        
+        print(currentToken)
+        print(tokens)
         print(numbersStack)
         print(operationsStack)
         print('-----------END-----------')
-        self.ui.OutputLabel.setText(str(numbersStack[0]))
+        
 
     def hint(self):
         pass
