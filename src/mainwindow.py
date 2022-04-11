@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
             self.add_input_char('%')
         elif event.key() == Qt.Key_Exclam:
             self.add_input_char('!')
-        elif event.key() == Qt.Key_Question:
+        elif event.key() == Qt.Key_F1:
             self.hint()
         elif event.key() == Qt.Key_Delete:
             self.clear_input()
