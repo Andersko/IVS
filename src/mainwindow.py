@@ -9,8 +9,11 @@ Module for MainWindow logic
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow
 from ui_mainwindow import Ui_MainWindow
+from ui_hintwindow import Ui_HintWindow
 import expression_parser
 import re
+
+
 
 class MainWindow(QMainWindow):
 
@@ -46,6 +49,8 @@ class MainWindow(QMainWindow):
         self.ui.Button_Left_Parenthesis.clicked.connect(self.button_pressed)
         self.ui.Button_Right_Parenthesis.clicked.connect(self.button_pressed)
 
+        self.dialog = Ui_HintWindow()
+        self.dialog.setupUi(self.dialog)
 
     def button_pressed(self):
         self.add_input_char(self.sender().text()[-1])
@@ -72,8 +77,11 @@ class MainWindow(QMainWindow):
         if result == 'Bad input':  
             self.first_input = True   
 
+
+
+
     def hint(self):
-        pass
+        self.dialog.show()
 
     def keyPressEvent(self, event):
         numbers = (
