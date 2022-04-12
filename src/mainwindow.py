@@ -10,6 +10,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow
 from ui_mainwindow import Ui_MainWindow
 import expression_parser
+import re
 
 class MainWindow(QMainWindow):
 
@@ -48,11 +49,13 @@ class MainWindow(QMainWindow):
 
     def button_pressed(self):
         self.add_input_char(self.sender().text()[-1])
+        
 
     def add_input_char(self, ch):
         if self.first_input:
             self.ui.OutputLabel.clear()
             self.first_input = False
+
 
         self.ui.OutputLabel.setText(self.ui.OutputLabel.text() + ch)
 
@@ -63,8 +66,11 @@ class MainWindow(QMainWindow):
 
     def calculate(self):
         expression = str(self.ui.OutputLabel.text())
+        
         result = expression_parser.parse_expression(expression)
-        self.ui.OutputLabel.setText(result)        
+        self.ui.OutputLabel.setText(result)   
+        if result == 'Bad input':  
+            self.first_input = True   
 
     def hint(self):
         pass

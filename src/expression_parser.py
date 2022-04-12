@@ -111,9 +111,11 @@ def calculate_expression( operation, numberList):
         return False
 
 def parse_string(text):
-        regex = re.compile(r'((?:(?:\d+(?:\.\d+)?))|(?:[-+\/*()√^%])|(?:-?\.\d+))') #r'((?:-?(?:\d+(?:\.\d+)?))|(?:[-+\/*()])|(?:-?\.\d+))'
+        regex = re.compile(r'((?:\-?(?:\d+(?:\.\d+)?))|(?:[\-\+\/\*\(\)\√\^\%]))')
         parsed = re.findall(regex,text)
-        parsed = [ float(x) if (re.match( r'(\d*\.\d+|\d+)' ,x) != None) else x for x in parsed]
+        print(parsed)
+        parsed = [ float(x) if (re.match( r'(-?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
+        [print(type(x)) for x in parsed]
         return parsed
     
     
@@ -203,6 +205,9 @@ def parse_expression(expression):
                     print(numbersStack)
                     print(operationsStack)
                     print('-----------END-----------')
+                    if len(numbersStack) != 1 :
+                        return "Bad input"
+
                     return str(numbersStack[0])
                         
         print(numbersStack)
