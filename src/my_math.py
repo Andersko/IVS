@@ -115,7 +115,7 @@ def power(x, n):
     @param x base value
     @param n exponent
     @return x raised to the power n
-    @exception TypeError if `x` or `n` isnt't number
+    @exception TypeError if `x` or `n` isn't number
     @exception ValueError if exponent isn't natural number
     """
 

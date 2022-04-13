@@ -27,7 +27,7 @@ import argparse
 
 def std_dev(numbers: 'list of floats') -> float:
     """!
-    Calculate standard deviation
+    Calculate standard deviation, at least two numbers are needed.
 
     @param numbers list of numbers to calculate
     @return standard deviation
