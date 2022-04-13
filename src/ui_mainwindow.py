@@ -9,12 +9,12 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect, QRegularExpression,
+    QMetaObject, QObject, QPoint, QRect,QRegularExpression,
     QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
+    QFont, QFontDatabase, QGradient, QIcon, QRegularExpressionValidator,
     QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform, QRegularExpressionValidator)
+    QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLayout, QLineEdit,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QTabWidget, QVBoxLayout, QWidget)
@@ -23,14 +23,14 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(860, 475)
+        MainWindow.resize(860, 350)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(860, 475))
-        MainWindow.setMaximumSize(QSize(860, 475))
+        MainWindow.setMinimumSize(QSize(860, 350))
+        MainWindow.setMaximumSize(QSize(860, 350))
         MainWindow.setCursor(QCursor(Qt.ArrowCursor))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setTabShape(QTabWidget.Rounded)
@@ -53,7 +53,6 @@ class Ui_MainWindow(object):
         regexp = QRegularExpression(r'^(-?(\d+(\.\d+)?)|([\-\+\/\*\(\)\√\^\%]))*$')
         validator = QRegularExpressionValidator(regexp)
         self.OutputLabel.setValidator(validator)
-
         self.verticalLayout.addWidget(self.OutputLabel)
 
         self.gridLayout = QGridLayout()
