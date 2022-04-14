@@ -9,10 +9,10 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,QRegularExpression,
+    QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon, QRegularExpressionValidator,
+    QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLayout, QLineEdit,
@@ -23,14 +23,14 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(860, 350)
+        MainWindow.resize(860, 475)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(860, 350))
-        MainWindow.setMaximumSize(QSize(860, 350))
+        MainWindow.setMinimumSize(QSize(860, 475))
+        MainWindow.setMaximumSize(QSize(860, 475))
         MainWindow.setCursor(QCursor(Qt.ArrowCursor))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setTabShape(QTabWidget.Rounded)
@@ -50,9 +50,11 @@ class Ui_MainWindow(object):
         font = QFont()
         font.setPointSize(26)
         self.OutputLabel.setFont(font)
-        regexp = QRegularExpression(r'^(-?(\d+(\.\d+)?)|([\-\+\/\*\(\)\√\^\%]))*$')
-        validator = QRegularExpressionValidator(regexp)
-        self.OutputLabel.setValidator(validator)
+        self.OutputLabel.setEchoMode(QLineEdit.Normal)
+        self.OutputLabel.setReadOnly(False)
+        self.OutputLabel.setCursorMoveStyle(Qt.VisualMoveStyle)
+        self.OutputLabel.setClearButtonEnabled(False)
+
         self.verticalLayout.addWidget(self.OutputLabel)
 
         self.gridLayout = QGridLayout()
@@ -245,7 +247,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 860, 21))
+        self.menubar.setGeometry(QRect(0, 0, 860, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -260,7 +262,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Calculator", None))
         self.OutputLabel.setInputMask("")
         self.OutputLabel.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.OutputLabel.setPlaceholderText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.OutputLabel.setPlaceholderText("")
         self.Button_Six.setText(QCoreApplication.translate("MainWindow", u"6", None))
         self.Button_Sqrt.setText(QCoreApplication.translate("MainWindow", u"\u221a", None))
         self.Button_Three.setText(QCoreApplication.translate("MainWindow", u"3", None))
