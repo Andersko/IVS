@@ -1,13 +1,18 @@
-'''!
+"""!
 Module for MainWindow logic
 
 @file mainwindow.py
 @author Adam Kostolányi
 @author Filip Solich
 @date 27.3.2022
-'''
+"""
+import re
+
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow
+
+import expression_parser
+from ui_hintwindow import Ui_HintWindow
 from ui_mainwindow import Ui_MainWindow
 
 
@@ -42,6 +47,18 @@ class MainWindow(QMainWindow):
         self.ui.Button_Percent.clicked.connect(self.button_pressed)
         self.ui.Button_C.clicked.connect(self.clear_input)
         self.ui.Button_Hint.clicked.connect(self.hint)
+        self.ui.Button_Left_Parenthesis.clicked.connect(self.button_pressed)
+        self.ui.Button_Right_Parenthesis.clicked.connect(self.button_pressed)
+
+        self.ui.OutputLabel.textChanged.connect(self.remove_leading_zero)
+
+        self.dialog = Ui_HintWindow()
+        self.dialog.setupUi(self.dialog)
+
+    def remove_leading_zero(self):
+        text = self.ui.OutputLabel.text()
+        if len(text) > 1 and text[0] == '0':
+            self.ui.OutputLabel.setText(text[1:])
 
     def button_pressed(self):
         self.add_input_char(self.sender().text()[-1])
@@ -59,10 +76,15 @@ class MainWindow(QMainWindow):
         self.first_input = True
 
     def calculate(self):
-        pass
+        expression = str(self.ui.OutputLabel.text())
+        
+        result = expression_parser.parse_expression(expression)
+        self.ui.OutputLabel.setText(result)   
+        if result == 'Bad input':  
+            self.first_input = True   
 
     def hint(self):
-        pass
+        self.dialog.show()
 
     def keyPressEvent(self, event):
         numbers = (
@@ -90,6 +112,10 @@ class MainWindow(QMainWindow):
             self.add_input_char('%')
         elif event.key() == Qt.Key_Exclam:
             self.add_input_char('!')
+        elif event.key() == Qt.Key_ParenLeft:
+            self.add_input_char('(')
+        elif event.key() == Qt.Key_ParenRight:
+            self.add_input_char(')')
         elif event.key() == Qt.Key_F1:
             self.hint()
         elif event.key() == Qt.Key_Delete:
