@@ -111,10 +111,10 @@ def calculate_expression( operation, numberList):
         return False
 
 def parse_string(text):
-        regex = re.compile(r'((?:(?<!\d)\-?(?:\d+(?:\.\d+)?))|(?:[\!\-\+\/\*\(\)\√\^\%]))')
+        regex = re.compile(r'((?:(?<!\d)[\+\-]?(?:\d+(?:\.\d+)?))|(?:[\!\-\+\/\*\(\)\√\^\%]))')
         parsed = re.findall(regex,text)
         print(parsed)
-        parsed = [ float(x) if (re.match( r'(-?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
+        parsed = [ float(x) if (re.match( r'([\+\-]?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
         [print(type(x)) for x in parsed]
         return parsed
     
