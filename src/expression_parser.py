@@ -17,9 +17,9 @@ precTable = [
     ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
     ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # !
     ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'S'],    # ^ todo
-    ['S',   'S',   'S',   'ERR', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
-    ['ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
-    ['R',   'R',   'ERR', 'R', 'R',   'R',   'ERR', 'R',   'A']]      #$       
+    ['S',   'S',   'S',   'R', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
+    ['ERR', 'ERR', 'ERR', 'R', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
+    ['R',   'R',   'ERR', 'R', 'R',   'R',   'R', 'R',   'A']]      #$       
 
 def getIndex( operator):
         if operator == '+' or operator == '-':
@@ -93,9 +93,10 @@ def calculate_expression( operation, numberList):
                 return True
         elif operation == '√':
             print("operation sqrt")
-            if len(numberList) >= 1:
+            if len(numberList) >= 2:
                 last = numberList.pop()
-                my_math.root(last)
+                preLast = numberList.pop()
+                result = my_math.root(last, preLast)
             else:
                 return True
         elif operation == '%':
@@ -153,7 +154,6 @@ def parse_expression(expression):
                 print('if2')
                 prevOperator = operationsStack[-1]
                 nextAction = precTable[getIndex(currentToken)][getIndex(prevOperator)]
-                    
                 if nextAction == 'S':
                     print('shift')
                     operationsStack.append(currentToken)
