@@ -14,7 +14,7 @@ precTable = [
     ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # +-
     ['S',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # */
     ['S',   'S',   'S',   'ERR', 'R',   'S',   'S',   'ERR', 'S'],    # (
-    ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
+    ['R',   'R',   'P', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
     ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # !
     ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'S'],    # ^ todo
     ['S',   'S',   'S',   'R', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
@@ -185,6 +185,8 @@ def parse_expression(expression):
                         if pushRightParenth:
                             print("push )")
                             operationsStack.append(')')
+                            if len(operationsStack) < 2 :
+                                return "Bad input"
                             print(operation)
                             print(tokens)
                             print(operationsStack)
@@ -194,7 +196,10 @@ def parse_expression(expression):
                         operationsStack.pop()
                         operationsStack.pop()
 
-                        
+                elif nextAction == 'P':
+                    if operationsStack[-1] == '(' and currentToken == ')':
+                        operationsStack.pop()
+
                 elif nextAction == 'ERR':
                     return "Bad input"
 
