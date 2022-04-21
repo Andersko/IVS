@@ -14,12 +14,12 @@ precTable = [
     ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # +-
     ['S',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # */
     ['S',   'S',   'S',   'ERR', 'R',   'S',   'S',   'ERR', 'S'],    # (
-    ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
+    ['R',   'R',   'P', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
     ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # !
     ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'S'],    # ^ todo
-    ['S',   'S',   'S',   'ERR', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
-    ['ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
-    ['R',   'R',   'ERR', 'R', 'R',   'R',   'ERR', 'R',   'A']]      #$       
+    ['S',   'S',   'S',   'R', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
+    ['ERR', 'ERR', 'ERR', 'R', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
+    ['R',   'R',   'ERR', 'R', 'R',   'R',   'R', 'R',   'A']]      #$       
 
 def getIndex( operator):
         if operator == '+' or operator == '-':
@@ -93,9 +93,10 @@ def calculate_expression( operation, numberList):
                 return True
         elif operation == '√':
             print("operation sqrt")
-            if len(numberList) >= 1:
+            if len(numberList) >= 2:
                 last = numberList.pop()
-                my_math.root(last)
+                preLast = numberList.pop()
+                result = my_math.root(last, preLast)
             else:
                 return True
         elif operation == '%':
@@ -111,10 +112,10 @@ def calculate_expression( operation, numberList):
         return False
 
 def parse_string(text):
-        regex = re.compile(r'((?:(?<!\d)\-?(?:\d+(?:\.\d+)?))|(?:[\-\+\/\*\(\)\√\^\%]))')
+        regex = re.compile(r'((?:(?<!\d)[\+\-]?(?:\d+(?:\.\d+)?))|(?:[\!\-\+\/\*\(\)\√\^\%]))')
         parsed = re.findall(regex,text)
         print(parsed)
-        parsed = [ float(x) if (re.match( r'(-?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
+        parsed = [ float(x) if (re.match( r'([\+\-]?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
         [print(type(x)) for x in parsed]
         return parsed
     
@@ -153,7 +154,6 @@ def parse_expression(expression):
                 print('if2')
                 prevOperator = operationsStack[-1]
                 nextAction = precTable[getIndex(currentToken)][getIndex(prevOperator)]
-                    
                 if nextAction == 'S':
                     print('shift')
                     operationsStack.append(currentToken)
@@ -185,6 +185,8 @@ def parse_expression(expression):
                         if pushRightParenth:
                             print("push )")
                             operationsStack.append(')')
+                            if len(operationsStack) < 2 :
+                                return "Bad input"
                             print(operation)
                             print(tokens)
                             print(operationsStack)
@@ -194,7 +196,10 @@ def parse_expression(expression):
                         operationsStack.pop()
                         operationsStack.pop()
 
-                        
+                elif nextAction == 'P':
+                    if operationsStack[-1] == '(' and currentToken == ')':
+                        operationsStack.pop()
+
                 elif nextAction == 'ERR':
                     return "Bad input"
 
