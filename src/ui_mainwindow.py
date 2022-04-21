@@ -9,10 +9,10 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
+    QMetaObject, QObject, QPoint, QRect,QRegularExpression,
     QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
+    QFont, QFontDatabase, QGradient, QIcon,QRegularExpressionValidator,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLayout, QLineEdit,
@@ -54,6 +54,9 @@ class Ui_MainWindow(object):
         self.OutputLabel.setReadOnly(False)
         self.OutputLabel.setCursorMoveStyle(Qt.VisualMoveStyle)
         self.OutputLabel.setClearButtonEnabled(False)
+        regexp = QRegularExpression(r'^(-?(\d+(\.\d+)?)|([\!\-\+\/\*\(\)\√\^\%]))*$')
+        validator = QRegularExpressionValidator(regexp)
+        self.OutputLabel.setValidator(validator)
 
         self.verticalLayout.addWidget(self.OutputLabel)
 
