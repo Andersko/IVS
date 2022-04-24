@@ -16,12 +16,12 @@ precTable = [
     ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # +-
     ['S',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # */
     ['S',   'S',   'S',   'ERR', 'R',   'S',   'S',   'ERR', 'S'],    # (
-    ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
+    ['R',   'R',   'P', 'R',   'R',   'R',   'R',   'ERR', 'S'],    # )
     ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # !
     ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'S'],    # ^ todo
-    ['S',   'S',   'S',   'ERR', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
-    ['ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
-    ['R',   'R',   'ERR', 'R', 'R',   'R',   'ERR', 'R',   'A']]      #$       
+    ['S',   'S',   'S',   'R', 'ERR', 'S',   'ERR', 'ERR', 'S'],    # √ todo
+    ['ERR', 'ERR', 'ERR', 'R', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
+    ['R',   'R',   'ERR', 'R', 'R',   'R',   'R', 'R',   'A']]      #$       
 
 """!
    Get index of the given operator for precedence table
@@ -103,7 +103,8 @@ def calculate_expression( operation, numberList):
         elif operation == '√':
             if len(numberList) >= 1:
                 last = numberList.pop()
-                my_math.root(last)
+                preLast = numberList.pop()
+                result = my_math.root(last, preLast)
             else:
                 return True
         elif operation == '%':
@@ -124,9 +125,9 @@ def calculate_expression( operation, numberList):
     @return Parsed expression
 """
 def parse_string(text):
-        regex = re.compile(r'((?:(?<!\d)\-?(?:\d+(?:\.\d+)?))|(?:[\-\+\/\*\(\)\√\^\%]))')
+        regex = re.compile(r'((?:(?<!\d)[\+\-]?(?:\d+(?:\.\d+)?))|(?:[\!\-\+\/\*\(\)\√\^\%]))')
         parsed = re.findall(regex,text)
-        parsed = [ float(x) if (re.match( r'(-?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
+        parsed = [ float(x) if (re.match( r'([\+\-]?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
         return parsed
     
     
@@ -163,7 +164,7 @@ def parse_expression(expression):
 
                 previousOperator = operationsStack[-1]
                 nextAction = precTable[getIndex(currentToken)][getIndex(previousOperator)]
-                    
+
                 if nextAction == 'S':
                     # If next action is shift
                     operationsStack.append(currentToken)
@@ -195,13 +196,18 @@ def parse_expression(expression):
                         if pushRightParenthesisBack:
                             # Pushing back the rigth parenthesis after calculating the expression
                             operationsStack.append(')')
+                            if len(operationsStack) < 2 :
+                                return "Bad input"
                                 
                     if operationsStack[-1] == ')' and operationsStack[-2] == '(':
                         # Pop parentheses if there are no operations inbetween 
                         operationsStack.pop()
                         operationsStack.pop()
 
-                        
+                elif nextAction == 'P':
+                    if operationsStack[-1] == '(' and currentToken == ')':
+                        operationsStack.pop()
+
                 elif nextAction == 'ERR':
                     return "Bad input"
 

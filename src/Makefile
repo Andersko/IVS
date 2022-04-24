@@ -53,7 +53,3 @@ run:
 
 profile:
 	./$(PROFILE) < $(PROFILE_DATA)
-
-installer:
-	mkdir -p $(INSTALL_DIR)
-	@echo "TODO"
