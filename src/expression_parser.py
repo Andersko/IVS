@@ -8,7 +8,9 @@ Module for expression parser logic
 import re
 import my_math
 
-
+"""!
+    Precedence table for operations
+"""
 precTable = [
 #prev +-     *,/     (      )     !       ^      √      %       $      # current
     ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],    # +-
@@ -21,7 +23,13 @@ precTable = [
     ['ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],    # % todo
     ['R',   'R',   'ERR', 'R', 'R',   'R',   'ERR', 'R',   'A']]      #$       
 
-def getIndex( operator):
+"""!
+   Get index of the given operator for precedence table
+
+    @param operator Operator we want to get index of
+    @return Index of the operator for precedence table
+"""
+def getIndex(operator):
         if operator == '+' or operator == '-':
             return 0
         elif operator == '*' or  operator == '/':
@@ -41,11 +49,17 @@ def getIndex( operator):
         elif operator == '$':
             return 8
 
+
+"""!
+   Calculate the expression of the highest precedence
+
+    @param operation Operation of the current expression
+    @param numberList Stack with the expression constants
+    @return True if expression has incorrect input
+"""
 def calculate_expression( operation, numberList):
         result = 0.0
         if operation == '+':
-            print("operation +")
-            print(len(numberList))
             if len(numberList) >= 2:
                 last = numberList.pop()
                 preLast = numberList.pop()
@@ -53,7 +67,6 @@ def calculate_expression( operation, numberList):
             else:
                 return True
         elif operation == '-':
-            print("operation -")
             if len(numberList) >= 2:
                 last = numberList.pop()
                 preLast = numberList.pop()
@@ -61,7 +74,6 @@ def calculate_expression( operation, numberList):
             else:
                 return True
         elif operation == '*':
-            print("operation *")
             if len(numberList) >= 2:
                 last = numberList.pop()
                 preLast = numberList.pop()
@@ -69,7 +81,6 @@ def calculate_expression( operation, numberList):
             else:
                 return True
         elif operation == '/':
-            print("operation /")
             if len(numberList) >= 2:
                 last = numberList.pop()
                 preLast = numberList.pop()
@@ -77,14 +88,12 @@ def calculate_expression( operation, numberList):
             else:
                 return True
         elif operation == '!':
-            print("operation !")
             if len(numberList) >= 1:
                 last = numberList.pop()
                 result = my_math.factorial(last)
             else:
                 return True
         elif operation == '^':
-            print("operation ^")
             if len(numberList) >= 2:
                 last = numberList.pop()
                 preLast = numberList.pop()
@@ -92,14 +101,12 @@ def calculate_expression( operation, numberList):
             else:
                 return True
         elif operation == '√':
-            print("operation sqrt")
             if len(numberList) >= 1:
                 last = numberList.pop()
                 my_math.root(last)
             else:
                 return True
         elif operation == '%':
-            print("operation %")
             if len(numberList) >= 2:
                 last = numberList.pop()
                 preLast = numberList.pop()
@@ -110,67 +117,68 @@ def calculate_expression( operation, numberList):
         numberList.append(result)
         return False
 
+"""!
+    Parses the expression into array of the given string
+
+    @param text String to parse into expression
+    @return Parsed expression
+"""
 def parse_string(text):
         regex = re.compile(r'((?:(?<!\d)\-?(?:\d+(?:\.\d+)?))|(?:[\-\+\/\*\(\)\√\^\%]))')
         parsed = re.findall(regex,text)
-        print(parsed)
         parsed = [ float(x) if (re.match( r'(-?(?:\d*\.\d+|\d+))' ,x) != None) else x for x in parsed]
-        [print(type(x)) for x in parsed]
         return parsed
     
     
+"""!
+    Parses the given string into expressions and calculates it
+
+    @param expression Expression to parse and calculate
+    @return Return either the result nor string "Bad input"
+"""
 def parse_expression(expression):
 
     tokens = parse_string(expression)
     tokens.append('$')
 
-    print('--------------PARSE START - WHILE--------------')
+    
     operationsStack = ['$']
     numbersStack = []
-    print(tokens)
+
     while True:
-        print('-----------Begin----------')
-        print(tokens)
 
         if len(tokens) != 0:
             currentToken = tokens.pop(0)
-    
-        print(currentToken)
-        print(tokens)
-        print(numbersStack)
-        print(operationsStack)  
 
         if isinstance(currentToken, float):
-            print('push number')
+            # If current token is a number, push it to the number stack
             numbersStack.append(currentToken)
         elif isinstance(currentToken, str):
-                
-            # if first operation
-            if operationsStack[-1] == '$' and len(tokens) != 0: # tokens[0] != '$':
-                print('if1')
+            # If current token is a operator
+            
+            if operationsStack[-1] == '$' and len(tokens) != 0:
+                # If we got first operation from expression
                 operationsStack.append(currentToken)
             else:
-                print('if2')
-                prevOperator = operationsStack[-1]
-                nextAction = precTable[getIndex(currentToken)][getIndex(prevOperator)]
+
+                previousOperator = operationsStack[-1]
+                nextAction = precTable[getIndex(currentToken)][getIndex(previousOperator)]
                     
                 if nextAction == 'S':
-                    print('shift')
+                    # If next action is shift
                     operationsStack.append(currentToken)
                 elif nextAction == 'R':
-                    print('reduce')
+                    # If next action is reduce expression
+                    
                     operation = operationsStack.pop()
 
-                         
                     if currentToken == ')' and operation == ')':
-                        print('insert ) back')
                         # insert back the lost ')'
                         tokens.insert(0,currentToken)
 
-                    pushRightParenth = False
+                    pushRightParenthesisBack = False
                     if operation == ')':
-                        print('this')
-                        pushRightParenth = True
+                        pushRightParenthesisBack = True
                         if len(operationsStack) != 0:
                             operation = operationsStack.pop()
 
@@ -179,18 +187,17 @@ def parse_expression(expression):
                         return "Bad input"
 
                     if currentToken != '$':
+                        # Push back the "ignored" token
                         operationsStack.append(currentToken)
                     else:
                         tokens.insert(0,currentToken)
-                        if pushRightParenth:
-                            print("push )")
+                        
+                        if pushRightParenthesisBack:
+                            # Pushing back the rigth parenthesis after calculating the expression
                             operationsStack.append(')')
-                            print(operation)
-                            print(tokens)
-                            print(operationsStack)
                                 
                     if operationsStack[-1] == ')' and operationsStack[-2] == '(':
-                        print('pop parenth')
+                        # Pop parentheses if there are no operations inbetween 
                         operationsStack.pop()
                         operationsStack.pop()
 
@@ -199,17 +206,9 @@ def parse_expression(expression):
                     return "Bad input"
 
                 elif nextAction == "A":
-                    print('a')
-                    print(currentToken)
-                    print(tokens)
-                    print(numbersStack)
-                    print(operationsStack)
-                    print('-----------END-----------')
+                    # Parsing finished
                     if len(numbersStack) != 1 :
                         return "Bad input"
 
-                    return str(numbersStack[0])
-                        
-        print(numbersStack)
-        print(operationsStack)    
+                    return str(numbersStack[0])  
         

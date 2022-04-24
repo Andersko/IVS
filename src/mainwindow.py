@@ -55,14 +55,29 @@ class MainWindow(QMainWindow):
         self.dialog = Ui_HintWindow()
         self.dialog.setupUi(self.dialog)
 
+    """!
+        Remove the zero after text input
+
+        @param self Reference to the current instance of the class
+    """
     def remove_leading_zero(self):
         text = self.ui.OutputLabel.text()
         if len(text) > 1 and text[0] == '0':
             self.ui.OutputLabel.setText(text[1:])
 
+    """!
+        Calculate the expression
+
+        @param self Reference to the current instance of the class
+    """
     def button_pressed(self):
         self.add_input_char(self.sender().text()[-1])
 
+    """!
+        Add character to input box
+
+        @param self Reference to the current instance of the class
+    """
     def add_input_char(self, ch):
         if self.first_input:
             self.ui.OutputLabel.clear()
@@ -70,11 +85,21 @@ class MainWindow(QMainWindow):
 
         self.ui.OutputLabel.setText(self.ui.OutputLabel.text() + ch)
 
+    """!
+        Clear the input
+
+        @param self Reference to the current instance of the class
+    """
     def clear_input(self):
         self.ui.OutputLabel.clear()
         self.add_input_char('0')
         self.first_input = True
 
+    """!
+        Calculate the expression
+
+        @param self Reference to the current instance of the class
+    """
     def calculate(self):
         expression = str(self.ui.OutputLabel.text())
         
@@ -83,9 +108,20 @@ class MainWindow(QMainWindow):
         if result == 'Bad input':  
             self.first_input = True   
 
+    """!
+        Show hint dialog window
+
+        @param self Reference to the current instance of the class
+    """
     def hint(self):
         self.dialog.show()
 
+    """!
+        Add character to input box based on key event
+
+        @param self Reference to the current instance of the class
+        @param event Event of the pressed key
+    """
     def keyPressEvent(self, event):
         numbers = (
             Qt.Key_0, Qt.Key_1, Qt.Key_2, Qt.Key_3, Qt.Key_4,
