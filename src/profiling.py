@@ -15,14 +15,10 @@ usage: profiling.py [-h] [INPUT_FILE]
 @date 19.3.2022
 """
 
-# Internal program imports
-import my_math as mm
-
-# Python built-in libraries import
+import argparse
 import sys
 
-# Python external libraries import
-import argparse
+import my_math as mm
 
 
 def std_dev(numbers: 'list of floats') -> float:
@@ -43,9 +39,11 @@ def std_dev(numbers: 'list of floats') -> float:
 
 
 if __name__ == '__main__':
-    # Parse args
-    parser = argparse.ArgumentParser(description='''Calculate standard deviation from stdin to stdout.
-Input contains numbers separated by whitespace characters.''')
+    description = (
+        'Calculate standard deviation from stdin to stdout. '
+        'Input contains numbers separated by whitespace characters.'
+    )
+    parser = argparse.ArgumentParser(description=description)
     parser.parse_args()
 
     numbers = []

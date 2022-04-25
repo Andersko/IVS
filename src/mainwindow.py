@@ -6,6 +6,8 @@ Module for MainWindow logic
 @author Filip Solich
 @date 27.3.2022
 """
+
+
 import re
 
 from PySide6.QtCore import Qt
@@ -18,6 +20,9 @@ from ui_mainwindow import Ui_MainWindow
 
 class MainWindow(QMainWindow):
 
+    """!
+    Initialize the main window
+    """
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
@@ -56,9 +61,9 @@ class MainWindow(QMainWindow):
         self.dialog.setupUi(self.dialog)
 
     """!
-        Remove the zero after text input
+    Remove the zero after text input
 
-        @param self Reference to the current instance of the class
+    @param self Reference to the current instance of the class
     """
     def remove_leading_zero(self):
         text = self.ui.OutputLabel.text()
@@ -66,17 +71,17 @@ class MainWindow(QMainWindow):
             self.ui.OutputLabel.setText(text[1:])
 
     """!
-        Calculate the expression
+    Calculate the expression
 
-        @param self Reference to the current instance of the class
+    @param self Reference to the current instance of the class
     """
     def button_pressed(self):
         self.add_input_char(self.sender().text()[-1])
 
     """!
-        Add character to input box
+    Add character to input box
 
-        @param self Reference to the current instance of the class
+    @param self Reference to the current instance of the class
     """
     def add_input_char(self, ch):
         if self.first_input:
@@ -86,9 +91,9 @@ class MainWindow(QMainWindow):
         self.ui.OutputLabel.setText(self.ui.OutputLabel.text() + ch)
 
     """!
-        Clear the input
+    Clear the input
 
-        @param self Reference to the current instance of the class
+    @param self Reference to the current instance of the class
     """
     def clear_input(self):
         self.ui.OutputLabel.clear()
@@ -96,31 +101,31 @@ class MainWindow(QMainWindow):
         self.first_input = True
 
     """!
-        Calculate the expression
+    Calculate the expression
 
-        @param self Reference to the current instance of the class
+    @param self Reference to the current instance of the class
     """
     def calculate(self):
         expression = str(self.ui.OutputLabel.text())
-        
+
         result = expression_parser.parse_expression(expression)
-        self.ui.OutputLabel.setText(result)   
-        if result == 'Bad input':  
-            self.first_input = True   
+        self.ui.OutputLabel.setText(result)
+        if result == 'Bad input':
+            self.first_input = True
 
     """!
-        Show hint dialog window
+    Show hint dialog window
 
-        @param self Reference to the current instance of the class
+    @param self Reference to the current instance of the class
     """
     def hint(self):
         self.dialog.show()
 
     """!
-        Add character to input box based on key event
+    Add character to input box based on key event
 
-        @param self Reference to the current instance of the class
-        @param event Event of the pressed key
+    @param self Reference to the current instance of the class
+    @param event Event of the pressed key
     """
     def keyPressEvent(self, event):
         numbers = (
