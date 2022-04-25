@@ -6,23 +6,25 @@ Module for expression parser logic
 @date 11.4.2022
 """
 
+
 import re
 import my_math
+
 
 """!
 Precedence table for operations
 """
 precTable = [
-    # prev +-     *,/    (      )      !      ^      √      %      $    # current
-    ['R', 'R', 'S', 'R', 'R', 'R', 'ERR', 'ERR', 'S'],  # +-
-    ['S', 'R', 'S', 'R', 'R', 'R', 'ERR', 'ERR', 'S'],  # */
-    ['S', 'S', 'S', 'ERR', 'R', 'S', 'S', 'ERR', 'S'],  # (
-    ['R', 'R', 'P', 'R', 'R', 'R', 'R', 'ERR', 'S'],  # )
-    ['S', 'S', 'S', 'R', 'R', 'R', 'ERR', 'ERR', 'S'],  # !
-    ['S', 'S', 'S', 'R', 'R', 'S', 'ERR', 'ERR', 'S'],  # ^
-    ['S', 'S', 'S', 'R', 'ERR', 'S', 'ERR', 'ERR', 'S'],  # √
-    ['ERR', 'ERR', 'ERR', 'R', 'ERR', 'ERR', 'ERR', 'ERR', 'S'],  # %
-    ['R', 'R', 'ERR', 'R', 'R', 'R', 'R', 'R', 'A'],  # $
+# prev +-    */     (      )      !      ^      √      %      $     # current
+    ['R',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],  # +-
+    ['S',   'R',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],  # */
+    ['S',   'S',   'S',   'ERR', 'R',   'S',   'S',   'ERR', 'S'],  # (
+    ['R',   'R',   'P',   'R',   'R',   'R',   'R',   'ERR', 'S'],  # )
+    ['S',   'S',   'S',   'R',   'R',   'R',   'ERR', 'ERR', 'S'],  # !
+    ['S',   'S',   'S',   'R',   'R',   'S',   'ERR', 'ERR', 'S'],  # ^
+    ['S',   'S',   'S',   'R',   'ERR', 'S',   'ERR', 'ERR', 'S'],  # √
+    ['ERR', 'ERR', 'ERR', 'R',   'ERR', 'ERR', 'ERR', 'ERR', 'S'],  # %
+    ['R',   'R',   'ERR', 'R',   'R',   'R',   'R',   'R',   'A'],  # $
 ]
 
 
