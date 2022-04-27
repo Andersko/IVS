@@ -40,7 +40,7 @@ def _is_int(x):
 def add(a, b):
     """!
     Addition of two numbers
-    
+
     @param a addend
     @param b addend
     @return sum of a and b
@@ -56,7 +56,7 @@ def add(a, b):
 def subtract(a, b):
     """!
     Subtraction of two numbers
-    
+
     @param a minuend
     @param b subtrahend
     @return difference of a and b
@@ -72,7 +72,7 @@ def subtract(a, b):
 def multiply(a, b):
     """!
     Multiplication of two numbers
-    
+
     @param a multiplier
     @param b multiplicand
     @return product of a and b
@@ -90,7 +90,7 @@ def divide(a, b):
     Division of two numbers
 
     Note that function does not take care of zero division.
-    
+
     @param a dividend
     @param b divisor
     @return quotient of a and b
