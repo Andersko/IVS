@@ -83,5 +83,5 @@ class Ui_HintWindow(QMainWindow):
 
     def retranslateUi(self, HintWindow):
         HintWindow.setWindowTitle(QCoreApplication.translate("HintWindow", u"HintWindow", None))
-        self.Hint_Label.setText(QCoreApplication.translate("HintWindow", u"<html><head/><body><p>Calculator help:<br/>- Use negative numbers in form of &quot;-number&quot;, in expression etc. &quot;-number&quot; &quot;operator -&quot; &quot;-number&quot; =&gt; -5--5<br/>- Hit &quot;=&quot; to see result</p></body></html>", None))
+        self.Hint_Label.setText(QCoreApplication.translate("HintWindow", u"<html><head/><body><p><b>Calculator help:</b><br/> - Use negative numbers in form of &quot;-number&quot;, in expression etc. &quot;-number&quot; &quot;operator -&quot; &quot;-number&quot; =&gt; <i>-5--5</i><br/>- <b>Hit</b> &quot;=&quot; to see result</p></body></html>", None))
     # retranslateUi
