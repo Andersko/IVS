@@ -22,11 +22,11 @@ PACK_WIS_FILES = hodnoceni.txt dokumentace.pdf odevzdani.txt src/
 PACK_IVS       = xpavlo14
 PACK_IVS_FILES = $(DOC_DIR) $(INSTALL_DIR) $(REPO_DIR)
 
-.PHONY: all pack pack-wis pack-ivs repo clean test doc run profile installer
+.PHONY: all pack pack-wis pack-ivs repo clean test doc run profile
 
 all: doc
 
-pack: doc installer pack-wis pack-ivs
+pack: doc pack-wis pack-ivs
 
 pack-wis: $(PACK_WIS_FILES)
 	$(ZIP) $(PACK_WIS) $(PACK_WIS_FILES)
