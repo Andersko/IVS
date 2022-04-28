@@ -1,0 +1,4 @@
+xkosto04 100 (základ GUI a základní mat. operace)
+xpavlo14 100 (profiling, instalátor)
+xsechr00 100 (základ GUI a testy)
+xsolic00 100 (pokročilé mat. operace, dokumentace)
