@@ -25,7 +25,6 @@ make run
 
 ## Authors
 
-Team **send nudes**:  
 - Adam Kostolányi - **xkosto04**  
 - Andrej Pavlovič - **xpavlo14**  
 - Marek Sechra - **xsechr00**  
